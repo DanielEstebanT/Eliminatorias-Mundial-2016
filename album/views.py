@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView
-from album.models import Team
-from album.models import Player
+from django.views.generic import ListView, DetailView
+from album.models import Team, Player
 
 # Create your views here.
 class TeamListView(ListView):
@@ -10,3 +9,8 @@ class TeamListView(ListView):
 class PlayerListView(ListView):
     model = Player
     
+class TeamDetailView(DetailView):
+    model = Team
+
+class PlayerDetailView(DetailView):
+    model = Player
