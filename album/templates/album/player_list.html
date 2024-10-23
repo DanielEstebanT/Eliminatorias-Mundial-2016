@@ -9,7 +9,7 @@
     <div>
         {% for c in object_list %}
             <a href="{% url 'player-detail' c.pk %}">
-                {{ c.first_name }} <br>
+                {{ c.first_name }} {{ c.last_name }} <br>
             </a>
         {% endfor %}
     </div>

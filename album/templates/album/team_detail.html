@@ -3,6 +3,10 @@
 {% load static %}
 
 {% block section %}
+
+    <a class="btn btn-outline-primary btn-sm" href="{% url "team-update" object.id %}"> Edit </a>
+    <a class="btn btn-outline-danger btn-sm" href="{% url "team-delete" object.id %}"> Delete </a>
+
    <h2>
        {{ object.id }} {{ object.name }}
        {% if object.team_id %}

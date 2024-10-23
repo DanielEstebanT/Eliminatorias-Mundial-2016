@@ -13,10 +13,14 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('team-list')
+    
 
 class Player(models.Model):
     """ futbolista """
-    team = models.ForeignKey('Team', on_delete=models.PROTECT,related_name='get_players' ) #models.PROTECT es para que proteja al eliminarlo, se pueden también en cascada
+    team = models.ForeignKey('Team', on_delete=models.PROTECT,related_name='get_players' ) #models.PROTECT es para que proteja al eliminarlo, se pueden también en cascada para borrar un equipo con todo y jugadores
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     photo = models.ImageField(upload_to='players/')
@@ -27,3 +31,18 @@ class Player(models.Model):
     
     def __str__(self):
         return self.first_name + " " + self.last_name
+    
+    def get_absolute_url(self):
+        return reverse('player-list')
+
+@receiver(post_delete, sender=Team)
+def team_delete(sender, instance, **kwargs):
+    """ Borra los ficheros de las fotos que se eliminan. """
+    instance.shield.delete(False)
+    instance.team.delete(False)
+    
+@receiver(post_delete, sender=Player)
+def player_delete(sender, instance, **kwargs):
+    """ Borra los ficheros de las fotos que se eliminan. """
+    instance.shield.delete(False)
+    instance.team.delete(False)

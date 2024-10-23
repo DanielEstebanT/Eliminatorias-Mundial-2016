@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block maincontent %}
+<form method="post" enctype="multipart/form-data">{% csrf_token %} <!--en enctype nos sirve para subir o leer los documentos de fotos o asi que se manejen y el csrf nos ayuda a evitar inyecciones para dar mas seguridad--> 
+    {{ form.as_p }}
+    <button class="btn btn-outline-primary" type="submit">Save</button>
+    <a class="btn btn-outline-secondary" href="{% url 'player-list'%}">Cancel</a>
+
+</form>
+{% endblock maincontent %}
